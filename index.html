@@ -2,50 +2,83 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
-  <link rel="stylesheet" href="/MY.PORTFOLYO.CSS">
-  <script src="app.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Shanur Karimov — Portfolio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    /* ---------- GLOBAL RESET & VARIABLES ---------- */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    :root {
+      --bg-dark: #0f0f0f;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --border-light: rgba(255, 255, 255, 0.08);
+      --accent: #00d4ff;
+      --accent-glow: rgba(0, 212, 255, 0.25);
+      --text-light: #eee;
+      --text-dim: #aaa;
+      --text-soft: #ccc;
+      --nav-height: 70px;
+      --radius-card: 24px;
+      --radius-btn: 20px;
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
-      color: #eee;
+      color: var(--text-light);
       line-height: 1.6;
+      animation: pageLoad 0.8s ease;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
     }
 
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    @keyframes pageLoad {
+      0% { opacity: 0; transform: scale(0.98); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* ---------- NAVIGATION (MOBILE FIRST) ---------- */
     nav {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
-      background: rgba(10, 10, 20, 0.85);
+      background: rgba(10, 10, 20, 0.9);
       backdrop-filter: blur(15px);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
       z-index: 1000;
       display: flex;
       justify-content: center;
-      gap: 2.5rem;
-      padding: 1.2rem 2rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.2rem;
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+      min-height: var(--nav-height);
     }
 
     nav a {
       color: #aaa;
       text-decoration: none;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       transition: all 0.3s ease;
       position: relative;
       padding-bottom: 4px;
+      white-space: nowrap;
     }
 
     nav a::after {
@@ -55,78 +88,90 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: #00d4ff;
+      background: var(--accent);
       transition: width 0.3s ease;
     }
 
-    nav a:hover {
+    nav a:hover,
+    nav a:active {
       color: #fff;
     }
 
-    nav a:hover::after {
+    nav a:hover::after,
+    nav a:active::after {
       width: 100%;
     }
 
+    /* ---------- HERO SECTION ---------- */
     .hero {
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 0 2rem;
-      margin-top: 70px;
+      padding: 2rem 1.2rem;
+      padding-top: calc(var(--nav-height) + 1.5rem);
     }
 
     .hero-content {
       max-width: 800px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .profile-img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        object-fit: cover;
-        object-position: center top;
-        border: 5px solid #00d4ff;
-        box-shadow: 0 0 35px rgba(0, 212, 255, 0.5);
-        margin-bottom: 2rem;
-        background: #222;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 4px solid var(--accent);
+      box-shadow: 0 0 30px var(--accent-glow);
+      margin-bottom: 1.5rem;
+      background: #222;
+      transition: 0.3s;
     }
 
     .hero h1 {
-      font-size: 3.5rem;
+      font-size: 2.2rem;
       font-weight: 700;
-      letter-spacing: 2px;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(to right, #fff, #00d4ff);
+      letter-spacing: 1px;
+      margin-bottom: 0.4rem;
+      background: linear-gradient(to right, #fff, var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      line-height: 1.2;
     }
 
     .hero .title {
-      font-size: 1.4rem;
-      color: #aaa;
-      margin-bottom: 2rem;
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      margin-bottom: 1.2rem;
       font-weight: 300;
     }
 
     .hero .title span {
-      color: #00d4ff;
+      color: var(--accent);
       font-weight: 600;
     }
 
     .hero .bio {
-      font-size: 1.1rem;
-      color: #ccc;
+      font-size: 0.95rem;
+      color: var(--text-soft);
       max-width: 600px;
-      margin: 0 auto 2rem auto;
+      margin: 0 auto 1.8rem auto;
+      padding: 0 0.5rem;
     }
 
     .social-links {
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
       font-size: 1.8rem;
     }
 
@@ -135,21 +180,23 @@
       transition: 0.3s;
     }
 
-    .social-links a:hover {
-      color: #00d4ff;
+    .social-links a:hover,
+    .social-links a:active {
+      color: var(--accent);
       transform: translateY(-5px);
     }
 
+    /* ---------- SECTIONS ---------- */
     section {
-      padding: 5rem 2rem;
+      padding: 3.5rem 1.2rem;
       max-width: 1100px;
       margin: 0 auto;
     }
 
     h2 {
-      font-size: 2.5rem;
+      font-size: 1.8rem;
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: #fff;
@@ -159,104 +206,128 @@
     h2::after {
       content: '';
       display: block;
-      width: 80px;
+      width: 60px;
       height: 4px;
-      background: #00d4ff;
-      margin: 1rem auto 0;
+      background: var(--accent);
+      margin: 0.8rem auto 0;
       border-radius: 2px;
     }
 
+    /* ---------- ABOUT ---------- */
     .about-grid {
       display: flex;
-      gap: 3rem;
-      align-items: center;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 2rem;
     }
 
     .about-text {
-      flex: 2;
-      font-size: 1.1rem;
-      color: #ccc;
+      font-size: 1rem;
+      color: var(--text-soft);
+    }
+
+    .about-text p {
+      margin-bottom: 0.8rem;
     }
 
     .about-stats {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
       border-radius: 16px;
-      padding: 2rem;
+      padding: 1.8rem 1.2rem;
       text-align: center;
     }
 
     .about-stats h3 {
-      font-size: 2.5rem;
-      color: #00d4ff;
+      font-size: 2.2rem;
+      color: var(--accent);
+      line-height: 1.2;
     }
 
+    .about-stats p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+
+    .about-stats h3 + p {
+      margin-bottom: 0.8rem;
+    }
+
+    /* ---------- SKILLS ---------- */
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
       text-align: center;
     }
 
     .skill-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 1.8rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 18px;
+      padding: 1.4rem 0.6rem;
       transition: 0.3s;
     }
 
     .skill-card i {
-      font-size: 2.8rem;
-      color: #00d4ff;
-      margin-bottom: 0.8rem;
-    }
- .skill-card:hover {
-      transform: translateY(-8px);
-      border-color: #00d4ff;
-      box-shadow: 0 15px 30px rgba(0, 212, 255, 0.2);
+      font-size: 2.2rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
     }
 
+    .skill-card p {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .skill-card:hover,
+    .skill-card:active {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 25px var(--accent-glow);
+    }
+
+    /* ---------- PROJECTS ---------- */
     .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
     }
 
     .project-card {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 24px;
+      border-radius: var(--radius-card);
       overflow: hidden;
       transition: 0.4s;
     }
 
-    .project-card:hover {
-      border-color: #00d4ff;
-      box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
-      transform: translateY(-10px);
+    .project-card:hover,
+    .project-card:active {
+      border-color: var(--accent);
+      box-shadow: 0 16px 32px var(--accent-glow);
+      transform: translateY(-6px);
     }
 
     .project-img {
       width: 100%;
-      height: 200px;
+      height: 180px;
       object-fit: cover;
       background: #1e1e2f;
     }
 
     .project-info {
-      padding: 1.8rem;
+      padding: 1.4rem 1.2rem;
     }
 
     .project-info h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+      margin-bottom: 0.4rem;
     }
 
     .project-info p {
-      color: #aaa;
+      color: var(--text-dim);
+      font-size: 0.9rem;
       margin-bottom: 1rem;
     }
 
@@ -267,79 +338,194 @@
     }
 
     .tech-tags span {
-      background: #00d4ff20;
-      color: #00d4ff;
-      padding: 0.3rem 0.8rem;
+      background: rgba(0, 212, 255, 0.12);
+      color: var(--accent);
+      padding: 0.25rem 0.8rem;
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 500;
     }
 
+    /* ---------- CONTACT ---------- */
     .contact-form {
       max-width: 650px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1rem;
     }
 
     .contact-form input,
     .contact-form textarea {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 1rem;
+      border-radius: 14px;
+      padding: 0.9rem 1rem;
       color: #fff;
-      font-size: 1rem;
+      font-size: 0.95rem;
       outline: none;
       transition: 0.3s;
+      font-family: inherit;
+      width: 100%;
     }
 
     .contact-form input:focus,
     .contact-form textarea:focus {
-      border-color: #00d4ff;
-      box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
+      border-color: var(--accent);
+      box-shadow: 0 0 25px var(--accent-glow);
     }
 
     .btn {
-        margin-top: 40px;
-        background: #000000;
-        color: #0ff;
-        border: 2px solid #0ff;
-        padding: 20px 30px;
-        border-radius: 20px;
-        text-shadow: 0 0 5px #0ff;
-        box-shadow: 0 0 3px #00d4ff;
-        cursor: pointer;
+      margin-top: 0.5rem;
+      background: #000;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      padding: 1rem 1.8rem;
+      border-radius: var(--radius-btn);
+      text-shadow: 0 0 5px var(--accent);
+      box-shadow: 0 0 5px var(--accent);
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-size: 0.95rem;
+      transition: 0.3s;
+      width: 100%;
+      font-family: inherit;
     }
 
-    .btn:hover {
-      background: #00000045;
-      box-shadow: 0 0 25px rgba(0, 215, 165, 0.504);
+    .btn:hover,
+    .btn:active {
+      background: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 25px rgba(0, 215, 165, 0.5);
+      transform: scale(0.98);
     }
 
+    /* ---------- FOOTER ---------- */
     footer {
       text-align: center;
-      padding: 2rem;
+      padding: 1.8rem 1rem;
       color: #555;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
-      margin-top: 3rem;
+      margin-top: 2rem;
+      font-size: 0.85rem;
     }
 
-    @media (max-width: 768px) {
+    /* ---------- TABLET & DESKTOP (min-width: 600px) ---------- */
+    @media (min-width: 600px) {
       nav {
-        gap: 1rem;
+        gap: 2rem;
+        padding: 1rem 2rem;
       }
+
+      nav a {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+      }
+
       .hero h1 {
-        font-size: 2.5rem;
+        font-size: 3rem;
+      }
+
+      .hero .title {
+        font-size: 1.3rem;
+      }
+
+      .hero .bio {
+        font-size: 1.05rem;
+      }
+
+      .profile-img {
+        width: 150px;
+        height: 150px;
+        border-width: 5px;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+
+      .skill-card {
+        padding: 1.8rem 0.8rem;
+      }
+
+      .skill-card i {
+        font-size: 2.6rem;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+      }
+
+      .about-grid {
+        flex-direction: row;
+        align-items: center;
+        gap: 3rem;
+      }
+
+      .about-text {
+        flex: 2;
+      }
+
+      .about-stats {
+        flex: 1;
+      }
+
+      .contact-form {
+        gap: 1.2rem;
+      }
+
+      .btn {
+        width: auto;
+        align-self: center;
+        padding: 1rem 3rem;
+      }
+
+      section {
+        padding: 4.5rem 2rem;
       }
     }
 
-    body {
-    animation: pageLoad 0.8s ease;
+    /* ---------- LARGE DESKTOP (min-width: 992px) ---------- */
+    @media (min-width: 992px) {
+      nav a {
+        font-size: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+
+      .hero .title {
+        font-size: 1.4rem;
+      }
+
+      .hero .bio {
+        font-size: 1.1rem;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      }
+
+      section {
+        padding: 5rem 2rem;
+      }
     }
 
-    html {
-        scroll-behavior: smooth;
+    /* ---------- REDUCED MOTION ---------- */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
@@ -357,19 +543,20 @@
     <div class="hero-content">
       <img 
         src="photo_2026-06-28_20-12-57.jpg" 
-        alt="Profile Photo" 
+        alt="Shanur Karimov" 
         class="profile-img"
+        loading="lazy"
       >
       <h1>Shanur Karimov</h1>
       <p class="title">Fullstack <span>Developer</span></p>
       <p class="bio">
-       Men — Full-stack Developer sifatida zamonaviy web-ilovalar yaratishga qiziqadigan dasturchiman. Frontend va backend texnologiyalaridan foydalanib, loyihalarni noldan ishlab chiqish va to‘liq funksional holatga keltirish ustida ishlayman.
+        Men — Full-stack Developer sifatida zamonaviy web-ilovalar yaratishga qiziqadigan dasturchiman. Frontend va backend texnologiyalaridan foydalanib, loyihalarni noldan ishlab chiqish va to‘liq funksional holatga keltirish ustida ishlayman.
       </p>
       <div class="social-links">
-        <a href="https://github.com/karimovdev09" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="http://www.youtube.com/@karimov_Producdion" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="http://instagram.com/shanur_karimov" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://t.me/shanurkarimov" target="_blank"><i class="fab fa-telegram"></i></a>
+        <a href="https://github.com/karimovdev09" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="http://www.youtube.com/@karimov_Producdion" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="http://instagram.com/shanur_karimov" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://t.me/shanurkarimov" target="_blank" rel="noopener" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
       </div>
     </div>
   </section>
@@ -406,16 +593,17 @@
       <div class="skill-card"><i class="fab fa-python"></i><p>Python</p></div>
       <div class="skill-card"><i class="fas fa-database"></i><p>MongoDB</p></div>
       <div class="skill-card"><i class="fab fa-git-alt"></i><p>Git</p></div>
-      <div class="skill-card"><i class="fab fa-github"></i><p>Git Hub</p></div>
+      <div class="skill-card"><i class="fab fa-github"></i><p>GitHub</p></div>
       <div class="skill-card"><i class="fab fa-docker"></i><p>Docker</p></div>
       <div class="skill-card"><i class="fab fa-figma"></i><p>Figma</p></div>
     </div>
   </section>
- <section id="projects">
+
+  <section id="projects">
     <h2>Proyektlar</h2>
     <div class="projects-grid">
       <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" alt="Project 1" class="project-img">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" alt="E-Commerce Platforma" class="project-img" loading="lazy">
         <div class="project-info">
           <h3>E-Commerce Platforma</h3>
           <p>To‘liq online do‘kon tizimi. React, Node.js, Stripe integratsiyasi.</p>
@@ -425,7 +613,7 @@
         </div>
       </div>
       <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=400&fit=crop" alt="Project 2" class="project-img">
+        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=400&fit=crop" alt="Task Manager App" class="project-img" loading="lazy">
         <div class="project-info">
           <h3>Task Manager App</h3>
           <p>Jamoa uchun vazifa boshqaruv ilovasi. Real-time bildirishnomalar.</p>
@@ -435,7 +623,7 @@
         </div>
       </div>
       <div class="project-card">
-        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" alt="Project 3" class="project-img">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" alt="Admin Dashboard" class="project-img" loading="lazy">
         <div class="project-info">
           <h3>Admin Dashboard</h3>
           <p>Analitika va boshqaruv paneli. Grafiklar, hisobotlar.</p>
@@ -449,16 +637,43 @@
 
   <section id="contact">
     <h2>Bog‘lanish</h2>
-    <form class="contact-form">
-      <input type="text" placeholder="Ismingiz" required>
-      <input type="email" placeholder="Email manzilingiz" required>
-      <textarea rows="5" placeholder="Xabaringiz..." required></textarea>
+    <form class="contact-form" action="#" method="POST">
+      <input type="text" name="name" placeholder="Ismingiz" required>
+      <input type="email" name="email" placeholder="Email manzilingiz" required>
+      <textarea name="message" rows="4" placeholder="Xabaringiz..." required></textarea>
       <button type="submit" class="btn">Jo‘natish</button>
     </form>
   </section>
 
   <footer>
-    <p>© 2026 shanur Karimov. Barcha huquqlar himoyalangan.</p>
+    <p>© 2026 Shanur Karimov. Barcha huquqlar himoyalangan.</p>
   </footer>
+
+  <!-- app.js optional — kept as reference, but not required for layout -->
+  <script>
+    // Simple smooth scroll fallback + form handler (optional)
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+
+    // Form submit – just a friendly message (no backend)
+    const form = document.querySelector('.contact-form');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Xabaringiz yuborildi! (demo)');
+        form.reset();
+      });
+    }
+  </script>
 </body>
 </html>
