@@ -6,7 +6,6 @@
   <title>Shanur Karimov — Portfolio</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* ---------- GLOBAL RESET & VARIABLES ---------- */
     * {
       margin: 0;
       padding: 0;
@@ -347,7 +346,7 @@
     }
 
     /* ---------- CONTACT ---------- */
-    .contact-form {
+    .myForm {
       max-width: 650px;
       margin: 0 auto;
       display: flex;
@@ -355,8 +354,8 @@
       gap: 1rem;
     }
 
-    .contact-form input,
-    .contact-form textarea {
+    .myForm input,
+    .myForm textarea {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 14px;
@@ -369,21 +368,21 @@
       width: 100%;
     }
 
-    .contact-form input:focus,
-    .contact-form textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 25px var(--accent-glow);
+    .myForm input:focus,
+    .myForm textarea:focus {
+      border-color: black;
+      box-shadow: 0 0 25px black;
     }
 
     .btn {
       margin-top: 0.5rem;
       background: #000;
       color: var(--accent);
-      border: 2px solid var(--accent);
+      border: 2px black;
       padding: 1rem 1.8rem;
       border-radius: var(--radius-btn);
-      text-shadow: 0 0 5px var(--accent);
-      box-shadow: 0 0 5px var(--accent);
+      text-shadow: 0 0 1px var(--accent);
+      box-shadow: 0 0 5px black;
       cursor: pointer;
       font-weight: 600;
       letter-spacing: 1px;
@@ -396,7 +395,7 @@
     .btn:hover,
     .btn:active {
       background: rgba(0, 0, 0, 0.4);
-      box-shadow: 0 0 25px rgba(0, 215, 165, 0.5);
+      box-shadow: 0 0 1px rgba(0, 215, 165, 0.5);
       transform: scale(0.98);
     }
 
@@ -492,7 +491,6 @@
       }
     }
 
-    /* ---------- LARGE DESKTOP (min-width: 992px) ---------- */
     @media (min-width: 992px) {
       nav a {
         font-size: 1rem;
@@ -637,11 +635,12 @@
 
   <section id="contact">
     <h2>Bog‘lanish</h2>
-    <form class="contact-form" action="#" method="POST">
+    <form class="myForm" id="myForm" action="https://formspree.io/f/xwlezdyg" method="POST">
       <input type="text" name="name" placeholder="Ismingiz" required>
-      <input type="email" name="email" placeholder="Email manzilingiz" required>
+      <input type="tel" placeholder="+998 *** ** **">
       <textarea name="message" rows="4" placeholder="Xabaringiz..." required></textarea>
       <button type="submit" class="btn">Jo‘natish</button>
+      <div id="message"></div>
     </form>
   </section>
 
@@ -649,9 +648,8 @@
     <p>© 2026 Shanur Karimov. Barcha huquqlar himoyalangan.</p>
   </footer>
 
-  <!-- app.js optional — kept as reference, but not required for layout -->
   <script>
-    // Simple smooth scroll fallback + form handler (optional)
+        // Simple smooth scroll fallback + form handler (optional)
     document.querySelectorAll('nav a').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
@@ -674,6 +672,52 @@
         form.reset();
       });
     }
+        document.getElementById('myForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Formani odatiy yuborishni to'xtatish
+            
+            const form = this;
+            const formData = new FormData(form);
+            const messageDiv = document.getElementById('message');
+            const submitButton = form.querySelector('button[type="submit"]');
+            
+           
+            submitButton.disabled = true;
+            submitButton.textContent = 'Yuborilmoqda...';
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+
+                      alert("✅ Xabaringiz muvaffaqiyatli yuborildi!");
+
+                      form.reset();
+                    
+                    // 3 soniyadan so'ng xabarni yashirish
+                    setTimeout(() => {
+                        messageDiv.classList.add('is-hidden');
+                    }, 3000);
+                } else {
+                    throw new Error('Xatolik yuz berdi');
+                }
+            } catch (error) {
+                // Xatolik yuz berdi
+                messageDiv.className = 'notification is-danger mt-3';
+                messageDiv.textContent = '❌ Xatolik yuz berdi. Iltimos qaytadan urinib ko\'ring.';
+                messageDiv.classList.remove('is-hidden');
+            } finally {
+                // Tugmani qayta yoqish
+                submitButton.disabled = false;
+                submitButton.textContent = 'Yuborish';
+            }
+        });
+    
   </script>
 </body>
 </html>
